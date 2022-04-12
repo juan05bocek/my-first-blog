@@ -1,34 +1,18 @@
-{% load static %}
+{% extends 'blog/base.html' %}
 <html>
     <head>
         <title>Django Girls blog</title>
-    </head><link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <body>
-        <div>
-            <h1><a href="/">Informativo Inteligente</a></h1>
-        </div>
-        <div>
-        <p>El prmir blog de información general</p>
-        </div>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
-
-        <div>
+{% block content %}
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
+                {{ post }}
+            </div>
             <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
-            <p>published: 05.04.2022, 22:22</p>
-            <h2><a href="">Sintomas de la gripe</a></h2>
-            <p>Los síntomas principales son fiebre, dolor de garganta y dolor de cabeza. También decaimiento y estornudos.</p>
+            <p>{{ post.text|linebreaksbr }}</p>
         </div>
-
-        <div>
-            <p>published: 05.04.2022, 22:30</p>
-            <h2><a href="">Los premios Oscar 2022 a las piñas</a></h2>
-            <p>Todo ocurrió el pasado sábado cuando el actor Will Smith dio un cacheteazo a Chris Rock por un chiste que Chris hizo sobre el cabello de su mujer.</p>
-        </div>
-
-        <div>
-            <p>published: 05.04.2022, 22:45</p>
-            <h2><a href="">El principal problema del hombre</a></h2>
-            <p>Muchas personas se encuentran ansiosas, deprimidas o sin sentido y la respuesta a eso es que sus vida esta fuera del plan de Dios y el resultado es lo anterior mencionado una vida desgraciada.</p>
-        </div>
-</html>
+    {% endfor %}
+{% endblock %}python manage.py runserver
