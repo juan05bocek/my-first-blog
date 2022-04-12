@@ -1,29 +1,13 @@
-{% load static %}
-<html>
-    <head><link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-        <title>Django Juan Bocek blog</title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
-    </head>
-    <body>
-    <div class="page-header">
-            <h1><a href="/">Informativo Inteligente</a></h1>
-    </div>
+{% extends 'blog/base.html' %}
 
-    <div class="page-header">
-    <h4>El primer blog que te informa de noticias para tu bienestar, cuidado y examinación/<h4>
-    <div></div>
-        
+{% block content %}
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
+                {{ post.published_date }}
+            </div>
+            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+            <p>{{ post.text|linebreaksbr }}</p>
         </div>
-            <p>published: 08.04.2022, 06:10</p>
-            <h2><a href="">Síntomas Gripe</a></h2>
-            <p>Los síntomas principales son fiebre, dolor de garganta y dolor de cabeza. También decaimiento y estornudos.</p>
-        </div>
-
-        </div>
-            <p>published: 08.04.2022, 06:10</p>
-            <h2><a href="">El principal problema del hombre</a></h2>
-            <p>Muchas personas se encuentran ansiosas, deprimidas o sin sentido y la respuesta a eso es que sus vida esta fuera del plan de Dios y el resultado es lo anterior mencionado una desgraciada.
-    </body>
-</html>
+    {% endfor %}
+{% endblock %}python manage.py runserver
